@@ -1,0 +1,14 @@
+/android/
+/ios/
+/build/
+.DS_Store
+*.swp
+*.log
+*.lock
+.pub-cache/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.metadata
+*.iml
+.idea/

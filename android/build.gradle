@@ -1,55 +1,33 @@
-group 'io.flutter.plugins.firebase.core'
-version '1.0-SNAPSHOT'
-
-apply plugin: 'com.android.library'
-apply from: file("local-config.gradle")
+group 'com.jrai.flutter_keyboard_visibility'
+version '1.0'
 
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.0'
+    }
 }
 
-def getRootProjectExtOrDefaultProperty(name) {
-    if (!rootProject.ext.has("FlutterFire")) return project.properties[name]
-    if (!rootProject.ext.get("FlutterFire")[name]) return project.properties[name]
-    return rootProject.ext.get("FlutterFire").get(name)
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
+
+apply plugin: 'com.android.library'
 
 android {
-    // Conditional for compatibility with AGP <4.2.
-    if (project.android.hasProperty("namespace")) {
-      namespace 'io.flutter.plugins.firebase.core'
-    }
-
-    compileSdk project.ext.compileSdk
+    compileSdkVersion 31
 
     defaultConfig {
-        minSdkVersion project.ext.minSdk
-        targetSdkVersion project.ext.targetSdk
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion 16
     }
-
-    compileOptions {
-        sourceCompatibility project.ext.javaVersion
-        targetCompatibility project.ext.javaVersion
-    }
-
-    buildFeatures {
-        buildConfig true
-    }
-
     lintOptions {
         disable 'InvalidPackage'
     }
-
-    dependencies {
-        implementation platform("com.google.firebase:firebase-bom:${getRootProjectExtOrDefaultProperty("FirebaseSDKVersion")}")
-        implementation "com.google.firebase:firebase-common"
-
-        implementation 'androidx.annotation:annotation:1.7.0'
-    }
 }
-
-apply from: file("./user-agent.gradle")
